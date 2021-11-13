@@ -1,7 +1,8 @@
-package com.aatman.springbootapp.web;
+package com.aatman.springbootapp.web.rest;
 
 import com.aatman.springbootapp.model.Message;
 import com.aatman.springbootapp.model.MessageRepository;
+import com.aatman.springbootapp.web.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Controller;
@@ -22,20 +23,13 @@ public class MessageController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    MessageService messageService;
+
     @GetMapping(path="/add")
     public @ResponseBody String addNewMessage (@RequestParam String data,
                                                @RequestParam Integer user_id) throws Exception {
-        Message message = new Message();
-        if(data==null || data == ""){
-            throw new Exception("empty message cannot be sent");
-        }
-        message.setData(data);
-        message.setUserId(user_id);
-        LocalDateTime dateTime = LocalDateTime.now();
-        message.setDateTime(dateTime);
-        message.setMessageId(777);
-        messageRepository.save(message);
-
-        return "saved";
+        String response = messageService.addMessage(data, user_id);
+        return response;
     }
 }

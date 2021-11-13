@@ -1,4 +1,4 @@
-package com.aatman.springbootapp.web;
+package com.aatman.springbootapp.web.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
